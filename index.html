@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+		<title></title>
+		<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+		<script src="./js/jquery-ui.min.js" type="text/javascript" charset="utf-8"></script>
+		<link rel="stylesheet" type="text/css" href="./css/base.css" />
+		<link rel="stylesheet" type="text/css" href="./css/jquery-ui.min.css" />
+		<style type="text/css">
+			.table-box {
+				padding: 15px;
+				text-align: center;
+				font-size: 14px;
+			}
+			
+			.table {
+				border: 1px solid #ddd;
+				border-style: solid solid none solid;
+				border-radius: 8px;
+				display: inline-block;
+				max-width: 1200px;
+				overflow: auto;
+			}
+			
+			.table-body {
+				width: 3470px;
+			}
+			
+			.table .tr:last-of-type {
+				border-radius: 8px;
+			}
+			
+			.tr {
+				border: 1px solid #ddd;
+				border-style: none none solid none;
+			}
+			
+			.tr:hover {
+				background-color: #F5F5F5;
+				/*cursor: pointer;*/
+			}
+			
+			.tr:after {
+				content: '';
+				width: 0;
+				height: 0;
+				display: block;
+				clear: both;
+			}
+			
+			.tr-left,
+			.tr-right {
+				position: relative;
+				float: left;
+			}
+			.tb .tr-right{
+				min-width: 3264px;
+				min-height: 30px;
+				background-image:url(img/bg.png);
+				background-size:auto 2px;
+			}
+			
+			.tb .tr-right .td {
+				border: 1px solid #ddd;
+				border-style: none dotted none none;
+			}
+			
+			.td {
+				float: left;
+				width: 68px;
+				height: 30px;
+				line-height: 30px;
+				border: 1px solid #ddd;
+				border-style: none solid none none;
+			}
+			
+			.tr-left .td:last-of-type {
+				border: 1px solid dimgray;
+				border-style: none solid none none;
+			}
+			
+			.tr-right .td:last-of-type {
+				border-style: none;
+			}
+			
+			.dragItem {
+				position: absolute;
+				height: 100%;
+				line-height: 30px;
+				display: inline-block;
+				background-color: crimson;
+				opacity: 0.2;
+				color: white;
+				left: 0;
+				cursor: move;
+				min-width: 5px;
+				overflow: hidden;
+			}
+			.dragBox{
+				width: 100%;
+				height: 100%;
+				position: relative;
+			}
+			.day-title0,
+			.day-title1{
+				width:1632px;
+				color: brown;
+			}
+			.day-title0{
+				background-color: #DDDDDD;
+			}
+			.day-title1{
+				background-color: beige;
+			}
+			::-webkit-scrollbar{
+			    width: 12px;
+			    height: 12px;
+			    background-color: #f5f5f5;
+			}
+			::-webkit-scrollbar-track{
+			    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+			    border-radius: 10px;
+			    background-color: darkgray;
+			}
+			::-webkit-scrollbar-thumb{
+			    height: 20px;
+			    border-radius: 10px;
+			    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+			    background-color: dimgrey;
+			}
+			.rightLine{
+				width: 5px;
+				height: 100%;
+				position: absolute;
+				top: 0;
+				right: 0 !important;
+				float: right !important;
+				background-color: #1E90FF;
+				cursor: e-resize;
+			}
+		</style>
+	</head>
+
+	<body>
+
+		<div class="table-box">
+			<div class="table">
+				<div class="table-body">
+					<div class="tr tb">
+						<div class="tr-left">
+							<div class="td" style="width: 204px;"></div>
+						</div>
+						<div class="tr-right">
+							<div class="td day-title0">
+								今天
+							</div>
+							<div class="td day-title1">
+								明天
+							</div>
+						</div>
+					</div>
+						
+					<div class="tr">
+						<div class="tr-left">
+							<div class="td">
+								编号
+							</div>
+							<div class="td">
+								司机
+							</div>
+							<div class="td">
+								时间
+							</div>
+						</div>
+						<div class="tr-right">
+							<div class="td">
+								00:00
+							</div>
+							<div class="td">
+								00:30
+							</div>
+							<div class="td">
+								01:00
+							</div>
+							<div class="td">
+								01:30
+							</div>
+							<div class="td">
+								02:00
+							</div>
+							<div class="td">
+								02:30
+							</div>
+							<div class="td">
+								03:00
+							</div>
+							<div class="td">
+								03:30
+							</div>
+							<div class="td">
+								04:00
+							</div>
+							<div class="td">
+								04:30
+							</div>
+							<div class="td">
+								05:00
+							</div>
+							<div class="td">
+								05:30
+							</div>
+							<div class="td">
+								06:00
+							</div>
+							<div class="td">
+								06:30
+							</div>
+							<div class="td">
+								07:00
+							</div>
+							<div class="td">
+								07:30
+							</div>
+							<div class="td">
+								08:00
+							</div>
+							<div class="td">
+								08:30
+							</div>
+							<div class="td">
+								09:00
+							</div>
+							<div class="td">
+								09:30
+							</div>
+							<div class="td">
+								10:00
+							</div>
+							<div class="td">
+								10:30
+							</div>
+							<div class="td">
+								11:00
+							</div>
+							
+							<div class="td">
+								11:30
+							</div>
+							
+							<div class="td">
+								12:00
+							</div>
+							
+							<div class="td">
+								12:30
+							</div>
+							
+							<div class="td">
+								13:00
+							</div>
+							
+							<div class="td">
+								13:30
+							</div>
+							
+							<div class="td">
+								14:00
+							</div>
+							
+							<div class="td">
+								14:30
+							</div>
+							
+							<div class="td">
+								15:00
+							</div>
+							
+							<div class="td">
+								15:30
+							</div>
+							
+							<div class="td">
+								16:00
+							</div>
+							
+							<div class="td">
+								16:30
+							</div>
+							
+							<div class="td">
+								17:00
+							</div>
+							<div class="td">
+								17:30
+							</div>
+							<div class="td">
+								18:00
+							</div>
+							<div class="td">
+								18:30
+							</div>
+							<div class="td">
+								19:00
+							</div>
+							<div class="td">
+								19:30
+							</div>
+							<div class="td">
+								20:00
+							</div>
+							<div class="td">
+								20:30
+							</div>
+							<div class="td">
+								21:00
+							</div>
+							<div class="td">
+								21:30
+							</div>
+							<div class="td">
+								22:00
+							</div>
+							<div class="td">
+								22:30
+							</div>
+							<div class="td">
+								23:00
+							</div>
+							<div class="td">
+								24:00
+							</div>
+						</div>
+					</div>	
+					
+						
+					<div class="tr tb">
+						<div class="tr-left">
+							<div class="td">
+								01
+							</div>
+							<div class="td">
+								司机B
+							</div>
+							<div class="td">
+								+0.01
+							</div>
+						</div>
+						<div class="tr-right">
+							
+							<div class="dragItem">
+								<div class="dragBox">
+									asd
+								</div>
+							</div>
+							
+						</div>
+					</div>
+
+					<div class="tr tb">
+						<div class="tr-left">
+							<div class="td">
+								01
+							</div>
+							<div class="td">
+								司机B
+							</div>
+							<div class="td">
+								+0.01
+							</div>
+						</div>
+						<div class="tr-right draggable ui-widget-content">
+
+							<div class="dragItem">
+								<div class="dragBox">
+									asd
+								</div>
+							</div>
+
+						</div>
+					</div>
+
+					<div class="tr tb">
+						<div class="tr-left">
+							<div class="td">
+								01
+							</div>
+							<div class="td">
+								司机B
+							</div>
+							<div class="td">
+								+0.01
+							</div>
+						</div>
+						<div class="tr-right draggable ui-widget-content">
+							
+							<div class="dragItem" id="aaa" style="left: 0px;">
+								<div class="dragBox">
+									派车任务一
+									<div class="rightLine">
+										
+									</div>
+								</div>
+							</div>
+							<div class="dragItem" id="bbb"  style="left: 100px;">
+								<div class="dragBox">
+									派车任务二
+									<div class="rightLine">
+										
+									</div>
+								</div>
+							</div>
+							
+							<div class="dragItem" id="ccc"  style="left: 200px;">
+								<div class="dragBox">
+									派车任务三
+									<div class="rightLine">
+										
+									</div>
+								</div>
+							</div>
+							
+							<div class="dragItem" id="ddd"  style="left: 300px;">
+								<div class="dragBox">
+									派车任务三
+									<div class="rightLine">
+										
+									</div>
+								</div>
+							</div>
+							
+						</div>
+					</div>
+
+				</div>
+			</div>
+		</div>
+
+		<script type="text/javascript">
+			//拖拽
+			$(".dragItem").draggable({
+				containment: "parent",
+				axis: "x",
+				cursor: "move",
+				stop: function(data,data1) {
+					//拖拽任务对象
+					var zj = data1.helper;
+					var mostTouchDom = getMostTouchDom(zj);
+					if(mostTouchDom != false){
+						if(mostTouchDom.touchRange >= 0){
+      						if(!eachItemsLR(0,zj[0],mostTouchDom.dom,0,($(mostTouchDom.dom).position().left - zj.outerWidth())) ){
+      							zj.css('left',($(mostTouchDom.dom).position().left - zj.outerWidth()));
+      						}else{
+      							zj.css('left',data1.originalPosition.left);
+      						}
+      					}else{
+      						if(!eachItemsLR(0,zj[0],mostTouchDom.dom,1,($(mostTouchDom.dom).position().left + 
+      							$(mostTouchDom.dom).outerWidth() + zj.outerWidth()),zj.parent())){
+      							zj.css('left',($(mostTouchDom.dom).position().left + $(mostTouchDom.dom).outerWidth()));
+      						}else{
+      							zj.css('left',data1.originalPosition.left);
+      						}
+      					}
+					}
+		      	}
+			});
+			//拉伸
+			$(".rightLine").draggable({
+				axis: "x",
+				cursor: "e-resize",
+		      	drag: function(data,data1) {
+					data1.helper.parent().parent().outerWidth(data1.position.left + 5);
+		      	},
+		      	stop: function(data,data1) {
+		      		//拉伸任务对象
+		      		var zj = data1.helper.parent().parent();
+		      		if(data1.position.left < 0){
+		      			zj.outerWidth(5);
+						data1.helper.css('left',0);
+						return;
+		      		}
+		      		var mostTouchDom = getMostTouchDom(zj);
+					if(mostTouchDom != false){
+						var thisLeft = $(mostTouchDom.dom).position().left;
+	  					var zjWidth = zj.outerWidth();
+	  					var thisWidth = $(mostTouchDom.dom).outerWidth();
+	  					
+	  					if(mostTouchDom.touchRange >= 0){
+	  						if(!eachItemsLR(1,zj[0],mostTouchDom.dom,0,( (thisLeft - zjWidth) < 0 ? 0 : (thisLeft - zjWidth)) ) ){
+	  							zj.width($(mostTouchDom.dom).position().left - zj.position().left);
+								data1.helper.css('left',($(mostTouchDom.dom).position().left - zj.position().left - 5));
+	  						}else{
+	  							zj.outerWidth(data1.originalPosition.left + 5);
+								data1.helper.css('left',data1.originalPosition.left);
+	  						}
+	  						
+	  					}else{
+	  						if(!eachItemsLR(1,zj[0],mostTouchDom.dom,1,(thisLeft + zjWidth + thisWidth),zj.parent())){
+	  							zj.css('left',($(mostTouchDom.dom).position().left + $(mostTouchDom.dom).outerWidth()));
+	  						}else{
+	  							zj.outerWidth(data1.originalPosition.left + 5);
+								data1.helper.css('left',data1.originalPosition.left);
+	  						}
+	  					}
+					}
+		      	}
+			});
+			/*
+			 * 	//遍历检查：除了自身身和接触对象外，是否有其他元素会在吸附后产生重叠。
+			 * type:0:为拖拽,1:为拉伸
+			 * item:自身元素对象.
+			 * target:当前与自身元素接触目标元素对象.
+			 * lr:值为0:自身吸附在目标元素的左侧. 值为1:自身吸附在目标元素的右侧.
+			 * can:假设吸附状态形成结束以后,自身元素的left值.
+			 * box:当前的tr容器元素对象.
+			*/
+			function eachItemsLR(type,item, target, lr, can, box){
+				var bool = false;
+				var boxRight = (typeof(box)=="undefined")?false:box.width();
+				$(item).parent().find('.dragItem').each(function(){
+					if(item != this && target != this){
+						if(lr == 0){
+							//将要左吸附，对假设已完成左吸附的元素做容器类的重叠检测
+							bool = checkPoint(type?($(item).position().left):($(target).position().left - $(item).outerWidth()),
+									($(target).position().left),
+									$(this).position().left,
+									($(this).position().left + $(this).outerWidth()));
+							
+							if(bool){
+								return false;
+							}
+						}else{
+							//将要右吸附，对假设已完成右吸附的元素做容器类的重叠检测
+							bool = checkPoint(($(target).position().left + $(target).outerWidth()),
+									type?($(target).position().left + $(target).outerWidth() + ($(target).position().left - $(item).position().left)):($(target).position().left + $(target).outerWidth() + $(item).outerWidth()),
+									($(this).position().left),
+									($(this).position().left + $(this).outerWidth()) );
+							if(bool){
+								return false;
+							}
+						}
+						if(bool){
+							return false;
+						}
+					}
+				});
+				//如果为true则需要重置
+				return bool||(can<0)||(boxRight === false?false:(can > box.width()));
+			}
+			function getMostTouchDom(zj){
+				var choseList = [];
+				zj.parent().find('.dragItem').each(function(){
+	      			if(zj[0] != this){
+	      				var result = situation(zj,$(this));
+	      				if(result[0] < 4 && result[0] >= 0){
+	      					choseList.push({
+	      						touchAbs:Math.abs(result[1]),
+	      						dom:this,
+	      						touchRange:result[1]
+	      					});
+	      				}
+	      			}
+	      		});
+	      		if(choseList.length==0){
+	      			return false;
+	      		}
+	      		choseList.sort(function(a,b){
+	      			return a.touchAbs - b.touchAbs;
+	      		});
+	      		return choseList[0];
+			}
+			function situation(a,b){
+				var aLeft = a.position().left;
+		        var aRight = aLeft + a.outerWidth();
+				var bLeft = b.position().left;
+		        var bRight = bLeft + b.outerWidth();
+		        
+		        var l_r = ((bRight+bLeft)-(aRight+aLeft));
+		        if(aLeft>=bLeft&&aRight<=bRight){
+		        	//自己被包含
+		        	return [0,l_r];
+		        }
+		        if(bLeft>=aLeft&&bRight<=aRight){
+		        	//自己包含了别人
+		        	return [1,l_r];
+		        }
+        		if(((bLeft>=aLeft&&bLeft<aRight)&&(bRight>aRight))||((aRight>bLeft&&aRight<=bRight)&&(aLeft<bLeft))){
+        			//自己的右边和别人有重叠
+        			return [2,l_r];
+        		}
+        		if(((bRight>aLeft&&bRight<=aRight)&&(bLeft<aLeft))||((aLeft>=bLeft&&aLeft<bRight)&&(aRight>bRight))){
+        			//自己的左边和别人有重叠
+        			return [3,l_r];
+        		}
+        		//自己和别人没有任何重叠
+				return [4,l_r];		        
+			}
+			function checkPoint(aLeft,aRight,bLeft,bRight){
+			 	return (aLeft>=bLeft&&aRight<=bRight)||
+				 	(bLeft>=aLeft&&bRight<=aRight)||
+	        		(((bLeft>=aLeft&&bLeft<aRight)&&(bRight>aRight))||((aRight>bLeft&&aRight<=bRight)&&(aLeft<bLeft)))||
+	        		(((bRight>aLeft&&bRight<=aRight)&&(bLeft<aLeft))||((aLeft>=bLeft&&aLeft<bRight)&&(aRight>bRight)));
+			}
+			
+		</script>
+
+	</body>
+
+</html>
