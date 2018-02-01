@@ -424,7 +424,7 @@
 							
 							<div class="dragItem" id="ddd"  style="left: 300px;">
 								<div class="dragBox">
-									派车任务三
+									派车任务四
 									<div class="rightLine">
 										
 									</div>
@@ -495,7 +495,6 @@
 	  							zj.outerWidth(data1.originalPosition.left + 5);
 								data1.helper.css('left',data1.originalPosition.left);
 	  						}
-	  						
 	  					}else{
 	  						if(!eachItemsLR(1,zj[0],mostTouchDom.dom,1,(thisLeft + zjWidth + thisWidth),zj.parent())){
 	  							zj.css('left',($(mostTouchDom.dom).position().left + $(mostTouchDom.dom).outerWidth()));
@@ -513,7 +512,7 @@
 			 * item:自身元素对象.
 			 * target:当前与自身元素接触目标元素对象.
 			 * lr:值为0:自身吸附在目标元素的左侧. 值为1:自身吸附在目标元素的右侧.
-			 * can:假设吸附状态形成结束以后,自身元素的left值.
+			 * can:假设吸附状态形成结束以后,自身元素的left值.(左吸附)。自身元素的right值.(右吸附)。
 			 * box:当前的tr容器元素对象.
 			*/
 			function eachItemsLR(type,item, target, lr, can, box){
@@ -534,7 +533,7 @@
 						}else{
 							//将要右吸附，对假设已完成右吸附的元素做容器类的重叠检测
 							bool = checkPoint(($(target).position().left + $(target).outerWidth()),
-									type?($(target).position().left + $(target).outerWidth() + ($(target).position().left - $(item).position().left)):($(target).position().left + $(target).outerWidth() + $(item).outerWidth()),
+									($(target).position().left + $(target).outerWidth() + $(item).outerWidth()),
 									($(this).position().left),
 									($(this).position().left + $(this).outerWidth()) );
 							if(bool){
